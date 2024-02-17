@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { FaPowerOff, FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
+import { toast } from "react-toastify";
 const Navbar = ({ isScrolled }) => {
+  const navigate = useNavigate(null);
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
 
@@ -15,6 +17,15 @@ const Navbar = ({ isScrolled }) => {
     { name: "Movies", link: "/movies" },
     { name: "My List", link: "/mylist" },
   ];
+  const handlerSignOut = () => {
+    signOut(firebaseAuth)
+      .then(() => {
+        navigate("/login");
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+  };
   return (
     <StyledDiv>
       <nav className={`flex ${isScrolled ? "scrolled" : ""}`}>
@@ -53,7 +64,7 @@ const Navbar = ({ isScrolled }) => {
               }}
             />
           </div>
-          <button onClick={() => signOut(firebaseAuth)}>
+          <button onClick={handlerSignOut}>
             <FaPowerOff />
           </button>
         </div>

@@ -9,6 +9,7 @@ import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
 import { firebaseAuth } from "../utils/firebase-config";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [formValues, setFormValues] = useState({
@@ -21,7 +22,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(firebaseAuth, email, password);
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     }
   };
   onAuthStateChanged(firebaseAuth, (currentUser) => {
@@ -42,7 +43,7 @@ const Login = () => {
               <input
                 type="email"
                 name="email"
-                id=""
+                id="userEmail"
                 value={formValues.email}
                 placeholder="Email Address"
                 onChange={(e) =>
@@ -55,7 +56,7 @@ const Login = () => {
               <input
                 type="password"
                 name="password"
-                id=""
+                id="userPassword"
                 placeholder="Password"
                 value={formValues.password}
                 onChange={(e) =>

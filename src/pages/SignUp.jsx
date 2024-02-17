@@ -30,7 +30,7 @@ const SignUp = () => {
   });
 
   return (
-    <StyledDiv showPassword={showPassword}>
+    <StyledDiv>
       <BackgroundImage />
       <div className="content">
         <Header login={true} />
@@ -46,7 +46,7 @@ const SignUp = () => {
             <input
               type="email"
               name="email"
-              id=""
+              id="userEmail"
               value={formValues.email}
               placeholder="Email Address"
               onChange={(e) =>
@@ -60,7 +60,7 @@ const SignUp = () => {
               <input
                 type="password"
                 name="password"
-                id=""
+                id="userPassword"
                 placeholder="Password"
                 value={formValues.password}
                 onChange={(e) =>
